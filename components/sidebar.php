@@ -11,10 +11,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="assets/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Salim Sulaiman</a>
+                <a href="#" class="d-block"><?php echo $username ?></a>
             </div>
         </div>
 
@@ -43,6 +43,9 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <?php
+                    if ($username == "Admin") {
+                    ?>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="dokter.php" class="nav-link">
@@ -57,15 +60,37 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link">
+                            <a href="obat.php" class="nav-link">
                                 <i class="fas fa-solid fa-tablets nav-icon"></i>
                                 <p>Obat</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="pasien.php" class="nav-link">
+                                <i class="fas fa-solid fa-user nav-icon"></i>
+                                <p>Pasien</p>
+                            </a>
+                        </li>
                     </ul>
+                    <?php } else { ?>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-solid fa-user nav-icon"></i>
+                                <p>Periksa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-solid fa-user nav-icon"></i>
+                                <p>Riwayat Pasien</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <?php } ?>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="pages/logout/logout.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Logout

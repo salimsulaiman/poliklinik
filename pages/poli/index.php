@@ -29,7 +29,7 @@
                                 data-target="#addModal">
                                 Tambah
                             </button>
-                            <!-- Modal Tambah Data Obat -->
+                            <!-- Modal Tambah Data Poli -->
                             <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
                                 aria-labelledby="addModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -41,7 +41,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Form tambah data obat disini -->
+                                            <!-- Form tambah data Poli disini -->
                                             <form action="pages/poli/tambahPoli.php" method="post">
                                                 <div class="form-group">
                                                     <label for="nama_poli">Nama Poli</label>
@@ -76,7 +76,7 @@
                             </thead>
                             <tbody>
 
-                                <!-- TAMPILKAN DATA OBAT DI SINI -->
+                                <!-- TAMPILKAN DATA Poli DI SINI -->
                                 <?php
                             require 'config/koneksi.php';
                             $query = "SELECT * FROM poli";
@@ -102,7 +102,7 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Obat</h5>
+                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Poli</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -114,7 +114,7 @@
                                                         <input type="hidden" class="form-control" id="id" name="id"
                                                             value="<?php echo $data['id'] ?>" required>
                                                         <div class="form-group">
-                                                            <label for="nama_poli">Nama Obat</label>
+                                                            <label for="nama_poli">Nama Poli</label>
                                                             <input type="text" class="form-control" id="nama_poli"
                                                                 name="nama_poli"
                                                                 value="<?php echo $data['nama_poli'] ?>" required>
@@ -143,7 +143,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Form edit data obat disini -->
+                                                    <!-- Form edit data Poli disini -->
                                                     <form action="pages/poli/hapusPoli.php" method="post">
                                                         <input type="hidden" class="form-control" id="id" name="id"
                                                             value="<?php echo $data['id'] ?>" required>

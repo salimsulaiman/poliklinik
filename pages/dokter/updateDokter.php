@@ -1,26 +1,27 @@
 <?php
-include '../../config/koneksi.php';
+include("../../config/koneksi.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil nilai dari form
+    $id = $_POST["id"];
     $nama = $_POST["nama"];
     $alamat = $_POST["alamat"];
     $no_hp = $_POST["no_hp"];
     $poli = $_POST["poli"];
-    $password = md5($nama);
 
-    // Query untuk menambahkan data obat ke dalam tabel
-    $query = "INSERT INTO dokter (nama, password, alamat, no_hp, id_poli) VALUES ('$nama', '$password', '$alamat', '$no_hp', '$poli')";
-    
+    // Query untuk melakukan update data obat
+    $query = "UPDATE dokter SET 
+        nama = '$nama', 
+        alamat = '$alamat',
+        no_hp = '$no_hp',
+        id_poli = $poli
+        WHERE id = '$id'";
 
-    // if ($koneksi->query($query) === TRUE) {
     // Eksekusi query
     if (mysqli_query($mysqli, $query)) {
-        // Jika berhasil, redirect kembali ke halaman utama atau sesuaikan dengan kebutuhan Anda
-        // header("Location: ../../index.php");
-        // exit();
+        // Jika berhasil, redirect kembali ke halaman index atau sesuaikan dengan kebutuhan Anda
         echo '<script>';
-        echo 'alert("Data dokter berhasil ditambahkan!");';
+        echo 'alert("Data dokter berhasil diubah!");';
         echo 'window.location.href = "../../dokter.php";';
         echo '</script>';
         exit();

@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Manajemen Dokter</h1>
+                <h1 class="m-0">Manajemen Pasien</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="index.php?page=home">Home</a></li>
-                    <li class="breadcrumb-item active">Dokter</li>
+                    <li class="breadcrumb-item active">Obat</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -22,55 +22,46 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Dokter</h3>
+                        <h3 class="card-title">Data Pasien</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-sm btn-success float-right" data-toggle="modal"
                                 data-target="#addModal">
                                 Tambah
                             </button>
-                            <!-- Modal Tambah Data dokter -->
+                            <!-- Modal Tambah Data Pasien -->
                             <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
                                 aria-labelledby="addModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="addModalLabel">Tambah Data Dokter</h5>
+                                            <h5 class="modal-title" id="addModalLabel">Tambah Data Pasien</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Form tambah data dokter disini -->
-                                            <form action="pages/dokter/tambahDokter.php" method="post">
+                                            <!-- Form tambah data pasien disini -->
+                                            <form action="pages/pasien/tambahPasien.php" method="post">
                                                 <div class="form-group">
-                                                    <label for="nama_dokter">Nama Dokter</label>
-                                                    <input type="text" class="form-control" id="nama_dokter" name="nama"
+                                                    <label for="nama">Nama Pasien</label>
+                                                    <input type="text" class="form-control" id="nama" name="nama"
+                                                        required>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="alamat">Alamat</label>
+                                                    <textarea class="form-control" rows="3" id="alamat" name="alamat"
+                                                        placeholder="Alamat" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="no_ktp">No KTP</label>
+                                                    <input type="text" class="form-control" id="no_ktp" name="no_ktp"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="alamat">Alamat</label>
-                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."
-                                                        id="alamat" name="alamat"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="no_hp">Nomor HP</label>
+                                                    <label for="no_hp">No HP</label>
                                                     <input type="text" class="form-control" id="no_hp" name="no_hp"
                                                         required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="poli">Poli</label>
-                                                    <select class="form-control" id="poli" name="poli">
-                                                        <?php
-                                                            require 'config/koneksi.php';
-                                                            $query = "SELECT * FROM poli";
-                                                            $result = mysqli_query($mysqli,$query);
-                                                            while ($dataPoli = mysqli_fetch_assoc($result)) {
-                                                        ?>
-                                                        <option value="<?php echo $dataPoli['id'] ?>">
-                                                            <?php echo $dataPoli['nama_poli'] ?></option>
-                                                        <?php } ?>
-                                                    </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Tambah</button>
                                             </form>
@@ -88,18 +79,20 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama Dokter</th>
+                                    <th>Nama Pasien</th>
                                     <th>Alamat</th>
-                                    <th>No HP</th>
-                                    <th>Poli</th>
+                                    <th>No KTP</th>
+                                    <th>No Hp</th>
+                                    <th>No Rekamedis</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <!-- TAMPILKAN DATA dokter DI SINI -->
+                                <!-- TAMPILKAN DATA OBAT DI SINI -->
                                 <?php
                             require 'config/koneksi.php';
-                            $query = "SELECT dokter.id, dokter.nama, dokter.alamat, dokter.no_hp, poli.nama_poli FROM dokter INNER JOIN poli ON dokter.id_poli = poli.id";
+                            $query = "SELECT * FROM pasien";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -108,9 +101,10 @@
                                 <tr>
                                     <td><?php echo $data['id'] ?></td>
                                     <td><?php echo $data['nama'] ?></td>
-                                    <td style="white-space: pre-line;"><?php echo $data['alamat'] ?></td>
+                                    <td><?php echo $data['alamat'] ?></td>
+                                    <td><?php echo $data['no_ktp'] ?></td>
                                     <td><?php echo $data['no_hp'] ?></td>
-                                    <td><?php echo $data['nama_poli'] ?></td>
+                                    <td><?php echo $data['no_rm'] ?></td>
                                     <td>
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal"
@@ -118,54 +112,46 @@
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
                                             data-target="#hapusModal<?php echo $data['id'] ?>">Hapus</button>
                                     </td>
-                                    <!-- Modal Edit Data poli -->
+                                    <!-- Modal Edit Data Pasien -->
                                     <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"
                                         role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Dokter</h5>
+                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Pasien</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Form edit data poli disini -->
-                                                    <form action="pages/dokter/updateDokter.php" method="post">
+                                                    <!-- Form edit data pasien disini -->
+                                                    <form action="pages/pasien/updatePasien.php" method="post">
                                                         <input type="hidden" class="form-control" id="id" name="id"
                                                             value="<?php echo $data['id'] ?>" required>
                                                         <div class="form-group">
-                                                            <label for="nama">Nama dokter</label>
+                                                            <label for="nama">Nama Pasien</label>
                                                             <input type="text" class="form-control" id="nama"
                                                                 name="nama" value="<?php echo $data['nama'] ?>"
                                                                 required>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group mb-3">
                                                             <label for="alamat">Alamat</label>
                                                             <textarea class="form-control" rows="3" id="alamat"
-                                                                name="alamat"><?php echo $data['alamat'] ?></textarea>
+                                                                name="alamat" placeholder="Alamat"
+                                                                required><?php echo $data['alamat'] ?></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="no_hp">No Hp</label>
-                                                            <input type="text" class="form-control" id="no_hp"
-                                                                name="no_hp" value="<?php echo $data['no_hp'] ?>"
+                                                            <label for="no_ktp">No KTP</label>
+                                                            <input type="text" class="form-control" id="no_ktp"
+                                                                name="no_ktp" value="<?php echo $data['no_ktp'] ?>"
                                                                 required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="poli">Poli</label>
-                                                            <select class="form-control" id="poli" name="poli">
-                                                                <?php
-                                                                require 'config/koneksi.php';
-                                                                $query = "SELECT * FROM poli";
-                                                                $results  = mysqli_query($mysqli,$query);
-                                                                while ($dataPoli = mysqli_fetch_assoc($results)) {
-                                                                    $selected = $dataPoli['id']
-                                                                ?>
-                                                                <option value="<?php echo $dataPoli['id'] ?>">
-                                                                    <?php echo $dataPoli['nama_poli'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
+                                                            <label for="no_hp">No HP</label>
+                                                            <input type="text" class="form-control" id="no_hp"
+                                                                name="no_hp" value="<?php echo $data['no_hp'] ?>"
+                                                                required>
                                                         </div>
                                                         <button type="submit" class="btn btn-success">Simpan</button>
                                                     </form>
@@ -173,21 +159,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Modal Hapus Data poli -->
+                                    <!-- Modal Hapus Data Obat -->
                                     <div class="modal fade" id="hapusModal<?php echo $data['id'] ?>" tabindex="-1"
                                         role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="addModalLabel">Hapus Data Dokter</h5>
+                                                    <h5 class="modal-title" id="addModalLabel">Hapus Data Pasien</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Form edit data dokter disini -->
-                                                    <form action="pages/dokter/hapusDokter.php" method="post">
+                                                    <!-- Form hapus data obat disini -->
+                                                    <form action="pages/pasien/hapusPasien.php" method="post">
                                                         <input type="hidden" class="form-control" id="id" name="id"
                                                             value="<?php echo $data['id'] ?>" required>
                                                         <p>Apakah anda yakin akan menghapus data <span
