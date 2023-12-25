@@ -6,9 +6,6 @@
     if ($username == "") {
         header("location:login.php");
     }
-    else if ($username != "Admin") {
-        echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
-    }
 ?>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -42,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <?php include ('pages/poli/index.php') ?>
+            <?php include ('pages/dashboard/index.php') ?>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -52,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Control sidebar content goes here -->
             <div class="p-3">
                 <h5>Title</h5>
-                <p>Sidebar content</p>
+                <p>Halo</p>
             </div>
         </aside>
         <!-- /.control-sidebar -->

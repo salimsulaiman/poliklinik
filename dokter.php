@@ -2,6 +2,13 @@
 <?php
     session_start();
     $username = $_SESSION['username'];
+
+    if ($username == "") {
+        header("location:login.php");
+    }
+    else if ($username != "Admin") {
+        echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
+    }
 ?>
 <!--
 This is a starter template page. Use this page to start your new project from

@@ -11,7 +11,7 @@
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
 
-            header("location:../../obat.php");
+            header("location:../../dokter.php");
         }
         else{
             $query = "SELECT * FROM dokter WHERE nama = '$username' && password = '$password'";
@@ -22,7 +22,7 @@
                 $_SESSION['username'] = $data['nama'];
                 $_SESSION['password'] = $data['password'];
 
-                header("location:../../pasien.php");
+                header("location:../../dashboard.php");
             }
             else{
                 $queryPasien = "SELECT * FROM pasien WHERE nama = '$username' && password = '$password'";
