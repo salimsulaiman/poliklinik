@@ -50,40 +50,46 @@
                         <li class="nav-item">
                             <a href="dokter.php" class="nav-link">
                                 <i class="fas fa-solid fa-user-nurse nav-icon"></i>
-                                <p>Dokter</p>
+                                <p>Dokter <span class="right badge badge-danger">Admin</span></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="poli.php" class="nav-link">
                                 <i class="fas fa-solid fa-hospital nav-icon"></i>
-                                <p>Poli</p>
+                                <p>Poli <span class="right badge badge-danger">Admin</span></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="obat.php" class="nav-link">
                                 <i class="fas fa-solid fa-tablets nav-icon"></i>
-                                <p>Obat</p>
+                                <p>Obat <span class="right badge badge-danger">Admin</span></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="pasien.php" class="nav-link">
                                 <i class="fas fa-solid fa-user nav-icon"></i>
-                                <p>Pasien</p>
+                                <p>Pasien <span class="right badge badge-danger">Admin</span></p>
                             </a>
                         </li>
                     </ul>
                     <?php } else { ?>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-solid fa-user nav-icon"></i>
-                                <p>Periksa</p>
+                            <a href="jadwalPeriksa.php" class="nav-link">
+                                <i class="fas fa-solid fa-hospital-user nav-icon"></i>
+                                <p>Jadwal Periksa <span class="right badge badge-success">Dokter</span></p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-solid fa-user nav-icon"></i>
-                                <p>Riwayat Pasien</p>
+                            <a href="periksaPasien.php" class="nav-link">
+                                <i class="fas fa-solid fa-stethoscope nav-icon"></i>
+                                <p>Memeriksa Pasien <span class="right badge badge-success">Dokter</span></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="riwayatPasien.php" class="nav-link">
+                                <i class="fas fa-solid fa-book-medical nav-icon"></i>
+                                <p>Riwayat Pasien <span class="right badge badge-success">Dokter</span></p>
                             </a>
                         </li>
                     </ul>

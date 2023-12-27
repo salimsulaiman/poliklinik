@@ -87,7 +87,7 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No</th>
                                     <th>Nama Dokter</th>
                                     <th>Alamat</th>
                                     <th>No HP</th>
@@ -99,6 +99,7 @@
                                 <!-- TAMPILKAN DATA dokter DI SINI -->
                                 <?php
                             require 'config/koneksi.php';
+                            $no = 1;
                             $query = "SELECT dokter.id, dokter.nama, dokter.alamat, dokter.no_hp, poli.nama_poli FROM dokter INNER JOIN poli ON dokter.id_poli = poli.id";
                             $result = mysqli_query($mysqli, $query);
 
@@ -106,7 +107,7 @@
                                 # code...  
                             ?>
                                 <tr>
-                                    <td><?php echo $data['id'] ?></td>
+                                    <td><?php echo $no++ ?></td>
                                     <td><?php echo $data['nama'] ?></td>
                                     <td style="white-space: pre-line;"><?php echo $data['alamat'] ?></td>
                                     <td><?php echo $data['no_hp'] ?></td>

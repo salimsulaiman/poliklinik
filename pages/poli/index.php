@@ -68,7 +68,7 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No</th>
                                     <th>Nama Poli</th>
                                     <th>Keterangan</th>
                                     <th>Aksi</th>
@@ -79,6 +79,7 @@
                                 <!-- TAMPILKAN DATA Poli DI SINI -->
                                 <?php
                             require 'config/koneksi.php';
+                            $no = 1;
                             $query = "SELECT * FROM poli";
                             $result = mysqli_query($mysqli, $query);
 
@@ -86,7 +87,7 @@
                                 # code...  
                             ?>
                                 <tr>
-                                    <td><?php echo $data['id'] ?></td>
+                                    <td><?php echo $no++ ?></td>
                                     <td><?php echo $data['nama_poli'] ?></td>
                                     <td style="white-space: pre-line;"><?php echo $data['keterangan'] ?></td>
                                     <td>

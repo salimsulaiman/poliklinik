@@ -78,7 +78,7 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No</th>
                                     <th>Nama Pasien</th>
                                     <th>Alamat</th>
                                     <th>No KTP</th>
@@ -92,6 +92,7 @@
                                 <!-- TAMPILKAN DATA OBAT DI SINI -->
                                 <?php
                             require 'config/koneksi.php';
+                            $no = 1;
                             $query = "SELECT * FROM pasien";
                             $result = mysqli_query($mysqli, $query);
 
@@ -99,7 +100,7 @@
                                 # code...  
                             ?>
                                 <tr>
-                                    <td><?php echo $data['id'] ?></td>
+                                    <td><?php echo $no++ ?></td>
                                     <td><?php echo $data['nama'] ?></td>
                                     <td><?php echo $data['alamat'] ?></td>
                                     <td><?php echo $data['no_ktp'] ?></td>
