@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <?php
     session_start();
+    $id_dokter = $_SESSION['id'];
     $username = $_SESSION['username'];
     $id_poli = $_SESSION['id_poli'];
-
+    
     if ($username == "") {
         header("location:login.php");
     }

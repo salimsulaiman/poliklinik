@@ -94,7 +94,7 @@
                                 <?php
                                 $no = 1;
                             require 'config/koneksi.php';
-                            $query = "SELECT * FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli'";
+                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli'";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -109,9 +109,9 @@
                                     <td>
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal"
-                                            data-target="#editModal<?php echo $data['id'] ?>">Edit</button>
+                                            data-target="#editModal<?php echo $data['id'] ?>" <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
-                                            data-target="#hapusModal<?php echo $data['id'] ?>">Hapus</button>
+                                            data-target="#hapusModal<?php echo $data['id'] ?>" <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
                                     </td>
                                     <!-- Modal Edit Data Obat -->
                                     <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"
@@ -127,26 +127,32 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Form edit data obat disini -->
-                                                    <form action="pages/obat/updateObat.php" method="post">
+                                                    <form action="pages/jadwalPeriksa/updateJadwal.php" method="post">
                                                         <input type="hidden" class="form-control" id="id" name="id"
                                                             value="<?php echo $data['id'] ?>" required>
                                                         <div class="form-group">
-                                                            <label for="nama_obat">Nama Obat</label>
-                                                            <input type="text" class="form-control" id="nama_obat"
-                                                                name="nama_obat"
-                                                                value="<?php echo $data['nama_obat'] ?>" required>
+                                                            <label for="hari">Hari</label>
+                                                            <select class="form-control" id="hari" name="hari">
+                                                                <?php
+                                                            $hariArray = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+                                                           foreach($hariArray as $hari){
+                                                        ?>
+                                                                <option value="<?php echo $hari ?>">
+                                                                    <?php echo $hari ?></option>
+                                                                <?php } ?>
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="kemasan">Kemasan</label>
-                                                            <input type="text" class="form-control" id="kemasan"
-                                                                name="kemasan" value="<?php echo $data['kemasan'] ?>"
-                                                                required>
+                                                            <label for="jamMulai">Jam Mulai</label>
+                                                            <input type="time" class="form-control" id="jamMulai"
+                                                                name="jamMulai" required
+                                                                value="<?= $data['jam_mulai'] ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="harga">Harga</label>
-                                                            <input type="text" class="form-control" id="harga"
-                                                                name="harga" value="<?php echo $data['harga'] ?>"
-                                                                required>
+                                                            <label for="jamSelesai">Jam Selesai</label>
+                                                            <input type="time" class="form-control" id="jamSelesai"
+                                                                name="jamSelesai" required
+                                                                value="<?= $data['jam_selesai'] ?>">
                                                         </div>
                                                         <button type="submit" class="btn btn-success">Simpan</button>
                                                     </form>

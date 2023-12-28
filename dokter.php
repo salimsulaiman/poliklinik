@@ -2,6 +2,7 @@
 <?php
     session_start();
     $username = $_SESSION['username'];
+    $idDokter = $_SESSION['id'];
 
     if ($username == "") {
         header("location:login.php");

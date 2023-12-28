@@ -32,6 +32,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                    $no = 1;
+                                    require 'config/koneksi.php';
+                                    $query = "SELECT periksa.id, pasien.nama, daftar_poli.keluhan, daftar_poli.status_periksa FROM periksa INNER JOIN daftar_poli ON periksa.id_daftar_poli = daftar_poli.id INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE dokter.id= '$id_dokter'";
+                                    $result = mysqli_query($mysqli,$query);
+
+                                    while ($data = mysqli_fetch_assoc($result)) {
+                                        # code...
+                                ?>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td><?php echo $data['nama']; ?></td>
+                                    <td><?php echo $data['keluhan']; ?></td>
+                                    <td>
+                                        <?php if ($data['status_periksa']==0) {
+                                        ?>
+                                            <button type='button' class='btn btn-sm btn-warning edit-btn'
+                                                data-toggle="modal"
+                                                data-target="#editModal<?php echo $data['id'] ?>">Edit</button>
+                                        <?php  } else { ?>
+                                            <button type='button' class='btn btn-sm btn-info edit-btn'
+                                                data-toggle="modal"
+                                                data-target="#editModal<?php echo $data['id'] ?>">Periksa</button>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
