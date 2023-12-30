@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<?php
+    session_start();
+?>
 <html lang="en">
 
 <head>
@@ -19,42 +23,48 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <a href="../../index2.html"><b>Daftar Poli</b></a>
-        </div>
         <!-- /.login-logo -->
         <div class="card">
+            <h6 class="bg-primary py-2 px-3 rounded-top">Daftar Poli</h6>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Silahkan login untuk melanjutkan mendaftar poli</p>
 
-                <form action="pages/loginUser/checkLoginUser.php" method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
+                <form action="pages/daftarPoli/daftarPoli.php" method="post">
+                    <div class="form-group mb-3">
+                        <label for="no_rm font-weight-bold">No Rekam Medis</label>
+                        <input type="text" class="form-control" name="no_rm" value="<?php echo $_SESSION['no_rm'] ?>"
+                            readonly required>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="poli">Pilih Poli</label>
+                        <select class="form-control" id="poli" name="poli" required>
+                            <?php
+                                require 'config/koneksi.php';
+                                $query = "SELECT * FROM poli";
+                                $result = mysqli_query($mysqli,$query);
+                                while ($dataPoli = mysqli_fetch_assoc($result)) {
+                            ?>
+                            <option value="<?php echo $dataPoli['id'] ?>">
+                                <?php echo $dataPoli['nama_poli'] ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-block btn-success">
-                        Login
+                    <div class="form-group mb-3">
+                        <label for="no_rm font-weight-bold">Pilih Jadwal</label>
+                        <select class="form-control" id="jadwal" name="jadwal" required>
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="keluhan">Keluhan</label>
+                        <textarea class="form-control" rows="3" id="keluhan" name="keluhan" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary">
+                        Daftar
                     </button>
-                </form>
-
-                <div class="social-auth-links text-center mb-3">
-                    <p>- Belum punya akun pasien? -</p>
-                    <a href="register.php" class="btn btn-block btn-primary">
-                        Register
+                    <a href="pages/logout/logout.php" class="btn btn-block btn-danger">
+                        Logout
                     </a>
-                </div>
+                </form>
                 <!-- /.social-auth-links -->
             </div>
             <!-- /.login-card-body -->
@@ -68,6 +78,26 @@
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="assets/dist/js/adminlte.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#poli').on('change', function() {
+            var poliId = $(this).val();
+
+            // Mengambil data jadwal berdasarkan poli yang dipilih
+            $.ajax({
+                type: 'POST',
+                url: 'getJadwal.php', // Ganti dengan path file get_jadwal.php sesuai dengan struktur proyek Anda
+                data: {
+                    poliId: poliId
+                },
+                success: function(data) {
+                    $('#jadwal').html(data);
+                }
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

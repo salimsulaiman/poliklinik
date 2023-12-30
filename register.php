@@ -25,7 +25,7 @@
 
         <div class="card">
             <div class="card-body register-card-body">
-                <p class="login-box-msg">Daftarkan data anda</p>
+                <p class="login-box-msg">Daftarkan data anda sebagai <span class="text-primary">Pasien</span> </p>
 
                 <form action="pages/register/checkRegister.php" method="post">
                     <div class="input-group mb-3">
@@ -71,7 +71,7 @@
 
                 <div class="social-auth-links text-center">
                     <p>- Sudah punya akun? -</p>
-                    <a href="login.php" class="btn btn-block btn-success">
+                    <a href="loginUser.php" class="btn btn-block btn-success">
                         Login
                     </a>
                 </div>

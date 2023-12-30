@@ -108,10 +108,11 @@
                                     <td><?php echo $data['jam_selesai'] ?></td>
                                     <td>
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
-                                            data-toggle="modal"
-                                            data-target="#editModal<?php echo $data['id'] ?>" <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
+                                            data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
+                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
-                                            data-target="#hapusModal<?php echo $data['id'] ?>" <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
+                                            data-target="#hapusModal<?php echo $data['id'] ?>"
+                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
                                     </td>
                                     <!-- Modal Edit Data Obat -->
                                     <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"

@@ -50,43 +50,45 @@
                                 while ($data = mysqli_fetch_assoc($result)) {
                                     # code...
                                 ?>
-                                    <tr>
-                                        <td><?php echo $no++ ?></td>
-                                        <td><?php echo $data['namaPasien']; ?></td>
-                                        <td><?php echo $data['alamat']; ?></td>
-                                        <td><?php echo $data['no_ktp']; ?></td>
-                                        <td><?php echo $data['no_hp']; ?></td>
-                                        <td><?php echo $data['no_rm']; ?></td>
-                                        <td>
-                                            <button type='button' class='btn btn-sm btn-info edit-btn' data-toggle="modal" data-target="#detailModal<?php echo $data['id'] ?>">Detail
-                                                Riwayat Periksa</button>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td><?php echo $data['namaPasien']; ?></td>
+                                    <td><?php echo $data['alamat']; ?></td>
+                                    <td><?php echo $data['no_ktp']; ?></td>
+                                    <td><?php echo $data['no_hp']; ?></td>
+                                    <td><?php echo $data['no_rm']; ?></td>
+                                    <td>
+                                        <button type='button' class='btn btn-sm btn-info edit-btn' data-toggle="modal"
+                                            data-target="#detailModal<?php echo $data['id'] ?>">Detail
+                                            Riwayat Periksa</button>
 
-                                            <div class="modal fade" id="detailModal<?php echo $data['id'] ?>">
-                                                <div class="modal-dialog modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Riwayat
-                                                                <?php echo $data['namaPasien'] ?></h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="card-body table-responsive p-0">
-                                                                <table class="table table-hover text-nowrap">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td>No</td>
-                                                                            <td>Tanggal Periksa</td>
-                                                                            <td>Nama Pasien</td>
-                                                                            <td>Nama Dokter</td>
-                                                                            <td>Keluhan</td>
-                                                                            <td>Obat</td>
-                                                                            <td>Biaya</td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <?php
+                                        <div class="modal fade" id="detailModal<?php echo $data['id'] ?>">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Riwayat
+                                                            <?php echo $data['namaPasien'] ?></h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card-body table-responsive p-0">
+                                                            <table class="table table-hover text-nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td>No</td>
+                                                                        <td>Tanggal Periksa</td>
+                                                                        <td>Nama Pasien</td>
+                                                                        <td>Nama Dokter</td>
+                                                                        <td>Keluhan</td>
+                                                                        <td>Obat</td>
+                                                                        <td>Biaya</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
                                                                         $idPasien = $data['idPasien'];
                                                                         $nomor = 1;
                                                                         require 'config/koneksi.php';
@@ -96,30 +98,33 @@
                                                                         while ($datas = mysqli_fetch_assoc($results)) {
                                                                             # code...
                                                                         ?>
-                                                                            <tr>
-                                                                                <td><?php echo $nomor++; ?></td>
-                                                                                <td><?php echo $datas['tgl_periksa'] ?></td>
-                                                                                <td><?php echo $datas['namaPasien'] ?></td>
-                                                                                <td><?php echo $datas['nama'] ?></td>
-                                                                                <td style="white-space: pre-line;"><?php echo $datas['keluhan'] ?></td>
-                                                                                <td style="white-space: pre-line;"><?php echo $datas['namaObat'] ?></td>
-                                                                                <td><?php echo $datas['hargaObat'] ?></td>
-                                                                            </tr>
-                                                                        <?php } ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer justify-content-end">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    <tr>
+                                                                        <td><?php echo $nomor++; ?></td>
+                                                                        <td><?php echo $datas['tgl_periksa'] ?></td>
+                                                                        <td><?php echo $datas['namaPasien'] ?></td>
+                                                                        <td><?php echo $datas['nama'] ?></td>
+                                                                        <td style="white-space: pre-line;">
+                                                                            <?php echo $datas['keluhan'] ?></td>
+                                                                        <td style="white-space: pre-line;">
+                                                                            <?php echo $datas['namaObat'] ?></td>
+                                                                        <td><?php echo $datas['hargaObat'] ?></td>
+                                                                    </tr>
+                                                                    <?php } ?>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
-                                                    <!-- /.modal-content -->
+                                                    <div class="modal-footer justify-content-end">
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
-                                                <!-- /.modal-dialog -->
+                                                <!-- /.modal-content -->
                                             </div>
-                                        </td>
-                                    </tr>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                    </td>
+                                </tr>
                                 <?php } ?>
                             </tbody>
                         </table>

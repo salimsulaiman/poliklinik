@@ -20,12 +20,13 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Poliklinik</b></a>
+            <a href="index.php"><b>Poliklinik</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Silahkan login untuk melanjutkan mendaftar poli</p>
+                <p class="login-box-msg">Silahkan login sebagai <span class="text-primary">Pasien</span> untuk
+                    melanjutkan mendaftar poli</p>
 
                 <form action="pages/loginUser/checkLoginUser.php" method="post">
                     <div class="input-group mb-3">
@@ -44,14 +45,14 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-block btn-success">
+                    <button type="submit" class="btn btn-block btn-primary">
                         Login
                     </button>
                 </form>
 
                 <div class="social-auth-links text-center mb-3">
                     <p>- Belum punya akun pasien? -</p>
-                    <a href="register.php" class="btn btn-block btn-primary">
+                    <a href="register.php" class="btn btn-block btn-secondary">
                         Register
                     </a>
                 </div>
@@ -59,6 +60,9 @@
             </div>
             <!-- /.login-card-body -->
         </div>
+    </div>
+    <div class="text-center mt-3">Login Sebagai <a href="login.php"><span class="text-success">Dokter</span></a>
+    </div>
     </div>
     <!-- /.login-box -->
 

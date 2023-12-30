@@ -14,8 +14,9 @@
 
                 $_SESSION['username'] = $data['nama'];
                 $_SESSION['password'] = $data['password'];
+                $_SESSION['no_rm'] = $data['no_rm'];
 
-                header("location:../../dashboard.php");
+                header("location:../../daftarPoli.php");
             }
             else{
                 echo '<script>alert("Email atau password salah");location.href="../../loginUser.php";</script>';
