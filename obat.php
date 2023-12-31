@@ -6,7 +6,7 @@
     if ($username == "") {
         header("location:login.php");
     }
-    else if ($username != "Admin") {
+    else if ($_SESSION['akses'] != "admin") {
         echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
     }
 ?>

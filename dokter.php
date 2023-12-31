@@ -2,13 +2,13 @@
 <?php
     session_start();
     $username = $_SESSION['username'];
-    $idDokter = $_SESSION['id'];
 
     if ($username == "") {
         header("location:login.php");
     }
-    else if ($username != "Admin") {
+    else if ($$_SESSION['akses'] != "admin") {
         echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
+        $idDokter = $_SESSION['id'];
     }
 ?>
 <!--

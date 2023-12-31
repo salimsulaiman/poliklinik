@@ -103,10 +103,8 @@
                                                                         <td><?php echo $datas['tgl_periksa'] ?></td>
                                                                         <td><?php echo $datas['namaPasien'] ?></td>
                                                                         <td><?php echo $datas['nama'] ?></td>
-                                                                        <td style="white-space: pre-line;">
-                                                                            <?php echo $datas['keluhan'] ?></td>
-                                                                        <td style="white-space: pre-line;">
-                                                                            <?php echo $datas['namaObat'] ?></td>
+                                                                        <td style="white-space: pre-line;"><?php echo $datas['keluhan'] ?></td>
+                                                                        <td style="white-space: pre-line;"><?php echo $datas['namaObat'] ?></td>
                                                                         <td><?php echo $datas['hargaObat'] ?></td>
                                                                     </tr>
                                                                     <?php } ?>

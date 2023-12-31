@@ -2,12 +2,10 @@
 <?php
     session_start();
     $username = $_SESSION['username'];
+    $idPasien = $_SESSION['id'];
 
     if ($username == "") {
-        header("location:login.php");
-    }
-    else if ($_SESSION['akses'] != "admin") {
-        echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
+        header("location:loginUser.php");
     }
 ?>
 <!--
@@ -42,20 +40,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <?php include ('pages/pasien/index.php') ?>
+            <?php include ('pages/daftarPoli/index.php') ?>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
     </div>
@@ -69,6 +57,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="assets/dist/js/adminlte.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#poli').on('change', function() {
+            var poliId = $(this).val();
+
+            // Mengambil data jadwal berdasarkan poli yang dipilih
+            $.ajax({
+                type: 'POST',
+                url: 'getJadwal.php', // Ganti dengan path file get_jadwal.php sesuai dengan struktur proyek Anda
+                data: {
+                    poliId: poliId
+                },
+                success: function(data) {
+                    $('#jadwal').html(data);
+                }
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

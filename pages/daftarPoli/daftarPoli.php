@@ -15,7 +15,7 @@
         $cekData = "SELECT * FROM daftar_poli";
         $queryCekData = mysqli_query($mysqli,$cekData);
         if (mysqli_num_rows($queryCekData)>0) {
-            $cekNoAntrian = "SELECT * FROM daftar_poli ORDER BY no_antrian DESC LIMIT 1";
+            $cekNoAntrian = "SELECT * FROM daftar_poli WHERE id_jadwal = '$idJadwal' ORDER BY no_antrian DESC LIMIT 1";
             $queryNoAntrian = mysqli_query($mysqli,$cekNoAntrian);
             $dataPoli = mysqli_fetch_assoc($queryNoAntrian);
             $antrianTerakhir = (int) $dataPoli['no_antrian'];
@@ -24,10 +24,10 @@
             $daftarPoli = "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian, status_periksa) VALUES ('$idPasien', '$idJadwal', '$keluhan', '$antrianBaru', '0')";
             $queryDaftarPoli = mysqli_query($mysqli,$daftarPoli);
             if ($queryDaftarPoli) {
-                echo '<script>alert("Berhasil mendaftar poli");window.location.href="../logout/logout.php";</script>';
+                echo '<script>alert("Berhasil mendaftar poli");window.location.href="../../daftarPoliklinik.php";</script>';
             }
             else{
-                echo '<script>alert("Gagal mendaftar poli");window.location.href="../../daftarPoli.php";</script>';
+                echo '<script>alert("Gagal mendaftar poli");window.location.href="../../daftarPoliklinik.php";</script>';
             }
         }
         else{
@@ -36,10 +36,10 @@
             $daftarPoli = "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian, status_periksa) VALUES ('$idPasien', '$idJadwal', '$keluhan', '$noAntrian', '0')";
             $queryDaftarPoli = mysqli_query($mysqli,$daftarPoli);
             if ($queryDaftarPoli) {
-            echo '<script>alert("Berhasil mendaftar poli");window.location.href="../logout/logout.php"</script>';
+            echo '<script>alert("Berhasil mendaftar poli");window.location.href="../../daftarPoliklinik.php"</script>';
             }
             else{
-                echo '<script>alert("Gagal mendaftar poli");window.location.href="../../daftarPoli.php";</script>';
+                echo '<script>alert("Gagal mendaftar poli");window.location.href="../../daftarPoliklinik.php";</script>';
             }
         }
 

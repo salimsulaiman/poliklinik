@@ -25,9 +25,13 @@
                         <h3 class="card-title">Daftar Jadwal Periksa</h3>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal"
-                                data-target="#addModal">
+                            <button type="button" class="btn btn-sm btn-primary float-right mx-1 my-1"
+                                data-toggle="modal" data-target="#addModal">
                                 Tambah Jadwal Periksa
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary float-right mx-1 my-1"
+                                data-toggle="modal" data-target="#cekJadwal">
+                                Lihat Jadwal
                             </button>
                             <!-- Modal Tambah Data Obat -->
                             <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
@@ -71,6 +75,61 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Modal lihat Data jadwal -->
+                            <div class="modal fade" id="cekJadwal" tabindex="-1" role="dialog"
+                                aria-labelledby="addModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <?php
+                                                require 'config/koneksi.php';
+                                                $cekJadwal = mysqli_query($mysqli,"SELECT * FROM dokter INNER JOIN poli ON dokter.id_poli = poli.id WHERE poli.id = '$id_poli'");
+                                                $getData = mysqli_fetch_assoc($cekJadwal);
+                                            ?>
+                                            <h5 class="modal-title" id="addModalLabel">Jadwal Poli
+                                                <?php echo $getData['nama_poli'] ?></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form tambah data jadwal disini -->
+                                            <div class="card-body table-responsive p-0">
+                                                <table class="table table-hover text-nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>No</td>
+                                                            <td>Nama Dokter</td>
+                                                            <td>Hari</td>
+                                                            <td>Jam Mulai</td>
+                                                            <td>Jam Selesai</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                                        $nomor = 1;
+                                                                        require 'config/koneksi.php';
+                                                                        $ambilDataJadwal = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli'";
+
+                                                                        $resultss = mysqli_query($mysqli, $ambilDataJadwal);
+                                                                        while ($a = mysqli_fetch_assoc($resultss)) {
+                                                                            # code...
+                                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $nomor++; ?></td>
+                                                            <td><?php echo $a['nama'] ?></td>
+                                                            <td><?php echo $a['hari'] ?></td>
+                                                            <td><?php echo $a['jam_mulai'] ?></td>
+                                                            <td><?php echo $a['jam_selesai'] ?></td>
+                                                        </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -94,7 +153,7 @@
                                 <?php
                                 $no = 1;
                             require 'config/koneksi.php';
-                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli'";
+                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -107,12 +166,26 @@
                                     <td><?php echo $data['jam_mulai'] ?></td>
                                     <td><?php echo $data['jam_selesai'] ?></td>
                                     <td>
+                                        <?php
+                                            require 'config/koneksi.php';
+                                            $cekJadwalPeriksa = "SELECT * FROM daftar_poli INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id WHERE jadwal_periksa.id_dokter = '$id_dokter' AND daftar_poli.status_periksa = '0'";
+                                            $queryCekJadwal = mysqli_query($mysqli,$cekJadwalPeriksa);
+                                            if (mysqli_num_rows($queryCekJadwal) > 0) {
+                                            
+                                        ?>
+                                        <button type='button' class='btn btn-sm btn-warning edit-btn'
+                                            data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
+                                            disabled>Edit</button>
+                                        <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
+                                            data-target="#hapusModal<?php echo $data['id'] ?>" disabled>Hapus</button>
+                                        <?php } else { ?>
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
                                             <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
                                             data-target="#hapusModal<?php echo $data['id'] ?>"
                                             <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
+                                        <?php } ?>
                                     </td>
                                     <!-- Modal Edit Data Obat -->
                                     <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"
@@ -120,7 +193,7 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Obat</h5>
+                                                    <h5 class="modal-title" id="addModalLabel">Edit Data Jadwal</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>

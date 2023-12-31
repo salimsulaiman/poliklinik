@@ -10,6 +10,7 @@
         if ($username == "Admin" && $password == md5("admin")) {
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
+            $_SESSION['akses'] = "admin";
 
             header("location:../../dokter.php");
         }
@@ -23,6 +24,7 @@
                 $_SESSION['username'] = $data['nama'];
                 $_SESSION['password'] = $data['password'];
                 $_SESSION['id_poli'] = $data['id_poli'];
+                $_SESSION['akses'] = "dokter";
 
                 header("location:../../dashboard.php");
             }

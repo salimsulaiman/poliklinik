@@ -27,7 +27,7 @@
     </div>
     <div class="container mt-5">
         <div class="row justify-content-lg-center">
-            <div class="col">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <i class="fas fa-user fa-fw mb-3 text-primary" style="font-size: 34px;"></i>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <i class="fas fa-user-nurse fa-fw mb-3 text-success" style="font-size: 34px;"></i>
