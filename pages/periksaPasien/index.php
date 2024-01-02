@@ -25,7 +25,7 @@
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No Antrian</th>
                                     <th>Nama Pasien</th>
                                     <th>Keluhan</th>
                                     <th>Aksi</th>
@@ -35,14 +35,14 @@
                                 <?php 
                                     $no = 1;
                                     require 'config/koneksi.php';
-                                    $query = "SELECT pasien.nama, daftar_poli.keluhan, daftar_poli.status_periksa, daftar_poli.id FROM daftar_poli INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE dokter.id = '$id_dokter'";
+                                    $query = "SELECT pasien.nama, daftar_poli.keluhan, daftar_poli.status_periksa, daftar_poli.id, daftar_poli.no_antrian FROM daftar_poli INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE dokter.id = '$id_dokter'";
                                     $result = mysqli_query($mysqli,$query);
 
                                     while ($data = mysqli_fetch_assoc($result)) {
                                         # code...
                                 ?>
                                 <tr>
-                                    <td><?php echo $no++ ?></td>
+                                    <td><?php echo $data['no_antrian']; ?></td>
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['keluhan']; ?></td>
                                     <td>
@@ -51,12 +51,15 @@
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal"
                                             data-target="#editModal<?php echo $data['id'] ?>">Edit</button>
-                                            <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"
+                                        <a href='invoice.php?id=<?php echo $data['id'] ?>'
+                                            class='btn btn-sm btn-secondary edit-btn'>Cetak</a>
+                                        <div class="modal fade" id="editModal<?php echo $data['id'] ?>" tabindex="-1"
                                             role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="addModalLabel">Edit Periksa Pasien</h5>
+                                                        <h5 class="modal-title" id="addModalLabel">Edit Periksa Pasien
+                                                        </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -84,15 +87,17 @@
                                                             <div class="form-group">
                                                                 <label for="tanggal_periksa">Tanggal Periksa</label>
                                                                 <input type="datetime-local" class="form-control"
-                                                                    id="tanggal_periksa" name="tanggal_periksa"
-                                                                    required value="<?php echo $ambilData['tgl_periksa'] ?>">
+                                                                    id="tanggal_periksa" name="tanggal_periksa" required
+                                                                    value="<?php echo $ambilData['tgl_periksa'] ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="catatan">Catatan</label>
                                                                 <textarea class="form-control" rows="3" id="catatan"
-                                                                    name="catatan" required><?php echo $ambilData['catatan'] ?></textarea>
+                                                                    name="catatan"
+                                                                    required><?php echo $ambilData['catatan'] ?></textarea>
                                                             </div>
-                                                            <button type="submit" class="btn btn-success">Simpan</button>
+                                                            <button type="submit"
+                                                                class="btn btn-success">Simpan</button>
                                                         </form>
                                                     </div>
                                                 </div>
