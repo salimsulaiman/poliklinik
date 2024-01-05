@@ -19,7 +19,7 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="container-fluid bg-sky-600 flex flex-col justify-center items-center text-white p-5"
+    <div class="container-fluid flex bg-sky-600 flex-col justify-center items-center text-white p-5"
         style="height: 400px;">
         <h1 class="font-weight-bold mb-3">Poliklinik</h1>
         <h5>
