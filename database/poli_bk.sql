@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jan 2024 pada 14.33
+-- Waktu pembuatan: 08 Jan 2024 pada 12.02
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -41,19 +41,8 @@ CREATE TABLE `daftar_poli` (
 --
 
 INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`, `status_periksa`) VALUES
-(1, 3, 2, 'Anak saya sudah 2 hari sakit dok', 1, '1'),
-(2, 1, 3, 'Kaki saya kemarin cidera dok, sekarang susah buat nendang bola lagi', 2, '1'),
-(3, 2, 2, 'Anak saya pilek dok, sudah saya minumin obat herbal masih belum sembuh sembuh', 3, '1'),
-(4, 1, 3, 'Pak Dokter, kaki saya cidera gk bisa nendang bola', 4, '1'),
-(5, 4, 2, 'Anak saya pusing sudah 5 hari dok', 5, '1'),
-(6, 1, 2, 'Badan anak saya panas dok, sudah 1 minggu ini', 6, '0'),
-(7, 5, 4, 'Gigi saya sakit dok', 1, '1'),
-(8, 5, 3, 'Kaki saya cidera dok', 5, '1'),
-(9, 5, 2, 'Anak saya pilek terus dok', 7, '0'),
-(10, 5, 1, 'Halo dok, mau periksa', 1, '0'),
-(11, 2, 4, 'Gigi saya sakit dok', 2, '0'),
-(12, 2, 3, 'Kaki saya sakit dok', 6, '1'),
-(13, 6, 4, 'Gusi anak saya sering sakit, dan giginya sedikit berlubang dok', 3, '1');
+(1, 1, 4, 'Saya kemarin jatuh dari sepeda', 1, '1'),
+(2, 5, 4, 'Tulang saya sering nyeri dok', 2, '0');
 
 -- --------------------------------------------------------
 
@@ -72,21 +61,8 @@ CREATE TABLE `detail_periksa` (
 --
 
 INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
-(1, 1, 10),
-(2, 2, 1),
-(3, 2, 3),
-(4, 2, 4),
-(5, 3, 1),
-(6, 3, 10),
-(7, 4, 4),
-(8, 4, 10),
-(9, 5, 2),
-(10, 6, 10),
-(11, 7, 10),
-(12, 8, 1),
-(13, 8, 2),
-(14, 9, 1),
-(15, 9, 3);
+(1, 1, 2),
+(2, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -108,10 +84,10 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`id`, `nama`, `password`, `alamat`, `no_hp`, `id_poli`) VALUES
-(1, 'Salim Sulaiman', '261ec66edc9f53c71e3fdba42c7c8a50', 'Jl. Sadewa 1 No 46', '08765645541', 7),
-(2, 'Nurul Ismawati', 'a74a0cef60e7331a2d6bac6a9beed3ff', 'Jl. Puspanjolo Timur', '08776734891', 2),
-(4, 'Dinita Kusumasari', '1b7a2e5ba5c1ad804d8d1b0950b91944', 'Puspanjolo Timur', '08777656432', 2),
-(5, 'Samy Sulaiman', 'b53d24dc524ec3b086225d2174a90bc4', 'Tegal', '087776571073', 5);
+(1, 'Salim Sulaiman', 'ae090602f3131f4c0870996426f353e5', 'Semarang, Jawa Tengah', '087776421076', 3),
+(2, 'Nurul Ismawati', 'a74a0cef60e7331a2d6bac6a9beed3ff', 'Puspanjolo Timur, Semarang, Jawa Tengah', '087776562786', 2),
+(3, 'Dinita Kusumasari', '1b7a2e5ba5c1ad804d8d1b0950b91944', 'Pekalongan, Jawa Tengah', '087778652467', 2),
+(4, 'Samy Sulaiman', 'b53d24dc524ec3b086225d2174a90bc4', 'Slawi, Kab. Tegal, Jawa Tengah', '0877767510', 3);
 
 -- --------------------------------------------------------
 
@@ -124,18 +100,20 @@ CREATE TABLE `jadwal_periksa` (
   `id_dokter` int(11) NOT NULL,
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam_mulai` time NOT NULL,
-  `jam_selesai` time NOT NULL
+  `jam_selesai` time NOT NULL,
+  `status` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `jadwal_periksa`
 --
 
-INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(1, 4, 'Senin', '14:00:00', '15:00:00'),
-(2, 2, 'Senin', '09:30:00', '12:00:00'),
-(3, 1, 'Jumat', '14:00:00', '15:00:00'),
-(4, 5, 'Jumat', '13:00:00', '16:00:00');
+INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `status`) VALUES
+(1, 2, 'Senin', '07:00:00', '11:30:00', '1'),
+(2, 3, 'Selasa', '07:00:00', '11:30:00', '1'),
+(3, 1, 'Senin', '16:00:00', '20:00:00', '1'),
+(4, 4, 'Senin', '07:00:00', '11:30:00', '1'),
+(5, 4, 'Selasa', '07:00:00', '11:00:00', '0');
 
 -- --------------------------------------------------------
 
@@ -159,7 +137,9 @@ INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
 (2, 'Pentoksifilin tablet 400 mg', 'ktk 10 x 10 tablet', 6000),
 (3, 'Alprazolam tablet 1 mg', 'ktk 10 x 10 tablet', 118000),
 (4, 'Amilorida tablet 5 mg', 'ktk 10 x 10 table', 12000),
-(10, 'Asam Askorbat (Vitamin C) tablet 250 mg', 'btl 250 tablet', 42000);
+(10, 'Asam Askorbat (Vitamin C) tablet 250 mg', 'btl 250 tablet', 42000),
+(11, 'Panadol Merah', '500 mg', 13000),
+(12, 'Panadol Hijau', '500 mg', 12000);
 
 -- --------------------------------------------------------
 
@@ -209,15 +189,7 @@ CREATE TABLE `periksa` (
 --
 
 INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`) VALUES
-(1, 3, '2023-12-31 12:35:00', 'Yasudah ini saya kasih vitamin saja ya, tolong diminum mas, sampai habis ya', 150000),
-(2, 4, '2023-12-30 13:06:00', 'Yasudah, ini saya kasih beberapa obat y, tolong diminum', 150000),
-(3, 1, '2023-12-31 06:04:00', 'Tolong diminum 3x sehari ya mas obatnya, harus habis', 150000),
-(4, 2, '2023-12-31 10:01:00', 'Tolong diminum obatnya, dan minum air yang bannyak', 150000),
-(5, 5, '2024-01-02 08:58:00', 'Tolong diminum obatnya ya mas Budi', 150000),
-(6, 8, '2024-01-04 13:23:00', 'Nih saya kasih obat', 150000),
-(7, 12, '2024-01-04 13:23:00', 'Yasudah istirahat saja, sama minum vitaminnya', 150000),
-(8, 7, '2024-01-05 20:11:00', 'Ini saya kasih beberapa obat, tolong diminum ya', 150000),
-(9, 13, '2024-01-05 20:22:00', 'Yasudah tolong ini diminum setiap hari ya', 150000);
+(1, 1, '2024-01-08 11:11:00', 'Yasudah ini saya kasiih beberapa obat, tolong diminum', 150000);
 
 -- --------------------------------------------------------
 
@@ -243,7 +215,8 @@ INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
 (5, 'Gigi', 'Klinik gigi adalah fasilitas pelayanan kesehatan oral yang menyediakan perawatan gigi dan mulut. Dokter gigi di klinik ini menangani berbagai masalah mulai dari pencegahan, perawatan gigi berlubang, hingga prosedur kosmetik seperti pemutihan gigi dan pemasangan kawat gigi. Klinik gigi juga dapat memberikan edukasi mengenai kebersihan gigi dan perawatan rutin.'),
 (6, 'Forensik', 'Klinik Forensik adalah fasilitas kesehatan yang khusus menyediakan pelayanan medis terkait dengan bidang forensik atau ilmu hukum. Klinik ini berfokus pada penerapan pengetahuan medis untuk membantu proses penyelidikan hukum dan peradilan. Pelayanan klinik forensik mencakup pemeriksaan medis terhadap korban kejahatan atau orang yang meninggal secara tiba-tiba, penilaian cedera, identifikasi mayat, pengumpulan bukti medis, serta memberikan kesaksian ahli di pengadilan. Klinik forensik berperan penting dalam mendukung sistem peradilan dan menyediakan informasi medis yang kritis untuk penyelidikan hukum.'),
 (7, 'Olahraga', 'Klinik Olahraga adalah fasilitas kesehatan yang secara khusus menyediakan pelayanan medis dan rehabilitasi untuk atlet dan individu yang terlibat dalam aktivitas fisik intensif atau olahraga. Klinik ini memiliki tim profesional yang terlatih dalam merawat cedera olahraga, memberikan perawatan fisioterapi, melibatkan program latihan khusus, serta memberikan saran untuk meningkatkan kinerja atlet.'),
-(9, 'Saraf', 'Klinik Saraf adalah fasilitas pelayanan kesehatan yang secara khusus fokus pada diagnosis, pengobatan, dan manajemen berbagai gangguan dan penyakit yang berkaitan dengan sistem saraf. ');
+(9, 'Saraf', 'Klinik Saraf adalah fasilitas pelayanan kesehatan yang secara khusus fokus pada diagnosis, pengobatan, dan manajemen berbagai gangguan dan penyakit yang berkaitan dengan sistem saraf. '),
+(10, 'Jantung', 'Poli jantung adalah poli yang berfokus pada pananganan masalah jantung');
 
 --
 -- Indexes for dumped tables
@@ -312,31 +285,31 @@ ALTER TABLE `poli`
 -- AUTO_INCREMENT untuk tabel `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasien`
@@ -348,24 +321,17 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT untuk tabel `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
-
---
--- Ketidakleluasaan untuk tabel `daftar_poli`
---
-ALTER TABLE `daftar_poli`
-  ADD CONSTRAINT `fk_daftarPoli_jadwal` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal_periksa` (`id`),
-  ADD CONSTRAINT `fk_daftarPoli_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `detail_periksa`
@@ -384,7 +350,7 @@ ALTER TABLE `dokter`
 -- Ketidakleluasaan untuk tabel `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  ADD CONSTRAINT `fk_jadwal_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id`);
+  ADD CONSTRAINT `fk_jadwalPeriksa_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `periksa`

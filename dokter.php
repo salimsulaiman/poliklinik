@@ -6,9 +6,9 @@
     if ($username == "") {
         header("location:login.php");
     }
-    else if ($$_SESSION['akses'] != "admin") {
+    else if ($_SESSION['akses'] != "admin") {
         echo '<script>alert("Anda tidak memiliki akses");window.location.href="login.php";</script>';
-        $idDokter = $_SESSION['id'];
+        // $idDokter = $_SESSION['id'];
     }
 ?>
 <!--

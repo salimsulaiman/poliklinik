@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else{
         // Query untuk menambahkan data obat ke dalam tabel
-        $query = "INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$idDokter', '$hari', '$jamMulai', '$jamSelesai')";
+        $query = "INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai, status) VALUES ('$idDokter', '$hari', '$jamMulai', '$jamSelesai','1')";
         
 
         // if ($koneksi->query($query) === TRUE) {

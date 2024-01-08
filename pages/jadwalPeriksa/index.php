@@ -144,6 +144,7 @@
                                     <th>Hari</th>
                                     <th>Jam Mulai</th>
                                     <th>Jam Selesai</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -153,7 +154,7 @@
                                 <?php
                                 $no = 1;
                             require 'config/koneksi.php';
-                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
+                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.status, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -167,24 +168,24 @@
                                     <td><?php echo $data['jam_selesai'] ?></td>
                                     <td>
                                         <?php
-                                            require 'config/koneksi.php';
-                                            $cekJadwalPeriksa = "SELECT * FROM daftar_poli INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id WHERE jadwal_periksa.id_dokter = '$id_dokter' AND daftar_poli.status_periksa = '0'";
-                                            $queryCekJadwal = mysqli_query($mysqli,$cekJadwalPeriksa);
-                                            if (mysqli_num_rows($queryCekJadwal) > 0) {
-                                            
+
+                                            if ($data['status'] == 1) {
+                                                echo '<span class="right badge badge-primary">Aktif</span>';
+                                            }
+                                            else if($data['status'] == 0){
+                                                echo '<span class="right badge badge-danger">Nonaktif</span>';
+                                            }
                                         ?>
-                                        <button type='button' class='btn btn-sm btn-warning edit-btn'
-                                            data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
-                                            disabled>Edit</button>
-                                        <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
-                                            data-target="#hapusModal<?php echo $data['id'] ?>" disabled>Hapus</button>
-                                        <?php } else { ?>
-                                        <button type='button' class='btn btn-sm btn-warning edit-btn'
-                                            data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
-                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
-                                        <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
-                                            data-target="#hapusModal<?php echo $data['id'] ?>"
-                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
+                                    </td>
+                                    <td>
+                                        <?php
+                                      if ($data['status'] == 0) {
+                                        ?>
+                                        <a href="pages/jadwalPeriksa/changeStatus.php?id=<?php echo $data['id'] ?>&status=<?php echo $data['status'] ?>"
+                                            class='btn btn-sm btn-warning edit-btn'>Aktifkan</a>
+                                        <?php }else if($data['status'] == 1){?>
+                                        <a href="pages/jadwalPeriksa/changeStatus.php?id=<?php echo $data['id'] ?>&status=<?php echo $data['status'] ?>"
+                                            class='btn btn-sm btn-warning edit-btn'>Nonaktif</a>
                                         <?php } ?>
                                     </td>
                                     <!-- Modal Edit Data Obat -->
